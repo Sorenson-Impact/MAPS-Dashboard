@@ -309,7 +309,7 @@ body <- mainPanel(width = 12,
                                       ),
                                       column(
                                           6,
-                                          "Covid-19 will likely exacerbate this trend, deepening the college closure crisis for students and communities. We are tracking past public and non-profit institutional closures using NCES IPEDs data and current closures through public announcements."
+                                          "Covid-19 will likely exacerbate this trend, deepening the college closure crisis for students and communities. We are tracking past public and non-profit institutional closures using NCES IPEDs data and current closures through public announcements. We plan to add more data on how institutions are grappling with the crisis."
                                       )
                                   ),
                                   fluidRow(br()),
