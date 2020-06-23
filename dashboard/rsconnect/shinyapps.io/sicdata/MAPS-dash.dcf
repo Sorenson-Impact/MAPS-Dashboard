@@ -1,0 +1,12 @@
+name: MAPS-dash
+title: MAPS-dash
+username:
+account: sicdata
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2493809
+bundleId: 3307211
+url: https://sicdata.shinyapps.io/MAPS-dash/
+when: 1592928028.64177
+asMultiple: FALSE
+asStatic: FALSE

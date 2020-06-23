@@ -39,7 +39,7 @@ body <- mainPanel(width = 12,
                                          fluidRow(br()),
                                          "This dashboard is a part of the MAPS Project, where we Model, Analyze, Prototype, and Share innovative data and solutions to challenges in higher education. We invite your collaboration. Find our project on ",
                                          tags$a(
-                                             href="https://github.com/Sorenson-Impact/maps_project_dash", 
+                                             href="https://github.com/Sorenson-Impact/MAPS-Dashboard", 
                                              target = "_blank",
                                              "Github"),
                                          "and add to our analysis. Reach out with ideas on data and topics you want to see addressed. We will be updating this dashboard regularly."
