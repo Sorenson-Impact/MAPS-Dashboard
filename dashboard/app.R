@@ -18,6 +18,19 @@ source("global.R")
 body <- mainPanel(width = 12,
                   position = "center",
                   fluidRow(
+                    column(
+                        12,
+                        align = "left",
+                        tags$a(
+                            href="https://www.sorensonimpact.com/maps",
+                            target = "_blank",
+                            img(src = "./images/logo.png", class = "logoImg1")
+                            )
+                    )  
+                  ),
+                  br(),
+                  br(),
+                  fluidRow(
                       column(
                           12,
                           align = "center",
