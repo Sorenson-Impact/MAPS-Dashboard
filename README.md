@@ -16,4 +16,4 @@ We invite your collaboration. Reach out with ideas on data and topics you want t
 
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Sorenson-Impact/MAPS-Dashboard/blob/master/LICENSE) file for details
