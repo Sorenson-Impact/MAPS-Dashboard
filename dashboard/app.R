@@ -268,7 +268,7 @@ body <- mainPanel(width = 12,
                               
                               column(
                                   4,
-                                  " Estimates on the potential changes in state higher education budgets due to the impact of Covid-19 on falling revenues were taken from local and national news sources. These percentage changes** were used to calculate the estimated post-Covid-19 projected spend. Based on the reliability of these numbers (i.e. whether they were projected budget shortfalls for states as a whole, which could affect higher ed budgets in a number of ways, all the way to whether they were legislature-passed bills that included specific changes for higher ed, which are then almost certain to remain unaffected), a confidence score was assigned to each value: unconfident, low confidence, moderate confidence, or high confidence."
+                                  "Estimates on the potential changes in state higher education budgets due to the impact of Covid-19 on falling revenues were taken from local and national news sources. These percentage changes** were used to calculate the estimated post-Covid-19 projected spend. Based on the reliability of these numbers (i.e. whether they were projected budget shortfalls for states as a whole, which could affect higher ed budgets in a number of ways, all the way to whether they were legislature-passed bills that included specific changes for higher ed, which are then almost certain to remain unaffected), a confidence score was assigned to each value: unconfident, low confidence, moderate confidence, or high confidence."
                               ),
                               column(
                                   4,
