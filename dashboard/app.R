@@ -533,7 +533,12 @@ body <- mainPanel(width = 12,
                       column(
                           6,
                           div(class = "footer",
-                              "MAPS Project supported by the Bill & Melinda Gates Foundation")
+                              "MAPS Project supported by the Bill & Melinda Gates Foundation"),
+                          div(
+                              class = "footer",
+                              "Data last updated July 25, 2020"
+                              
+                          )
                       ),
                       column(
                           6, 
@@ -790,9 +795,9 @@ server <- function(input, output) {
     output$mg_cl_df <- renderDT({
         
         df <-  if (input$mg_cl_status_select == "Closed") {mg_cl %>% filter(filter_yr == input$mg_cl_yr_select) %>% filter(final_status == input$mg_cl_status_select) %>% arrange(state_name) %>%
-                select(`Year` = filter_yr, `Status` = final_status, `State` = state_name, `IHE` = institution_entity_name)} else
+                select(`Year` = filter_yr, `Status` = final_status, `State` = state_name, `IHE` = institution_name_google)} else
                     if (input$mg_cl_status_select == "Merged") {mg_cl %>% filter(filter_yr == input$mg_cl_yr_select) %>% filter(final_status == input$mg_cl_status_select) %>% arrange(state_name) %>%
-                            select(`Year` = filter_yr, `Status` = final_status, state = state_name, `IHE` = institution_entity_name,
+                            select(`Year` = filter_yr, `Status` = final_status, state = state_name, `IHE` = institution_name_google,
                                    `Merged Into` = name_for_merged_into_schools)}
         
     
