@@ -301,9 +301,26 @@ body {
     border-radius: 0;
 }
 
- input[type="search"] {
+
+
+/* Datatable */
+
+input[type="search"] {
        
         border: 1px solid #C0C0C0;
-  }
+}
+
+
+.dataTables_wrapper {
+    font-size: 16px;
+}
+
+/*
+th {
+text-transform: uppercase;
+font-weight: 300;
+}*/
+  
+
   
   

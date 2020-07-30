@@ -366,12 +366,120 @@ body <- mainPanel(width = 12,
                               )
                           ),
                           
-                          fluidRow(),
+                          br(),
+                          br(),
+                          
+                          # prioritization measures ----
+                          fluidRow(
+                              column(
+                                  8, 
+                                  div(class = "lvl2_title",
+                                      "Prioritization Measures")
+                              )
+                          ),
+                          br(),
+                          
+                          fluidRow(
+                              column(
+                                  4,
+                                  "Even before Covid-19, student enrollment in higher education has declined over the past ten years. Some IHEs have been forced to make short-term or long-term changes due to shrinking student enrollment, declining financial security, the possibility of losing accreditation, or some combination of the three. When implementing a prioritization plan to maintain operations, strained institutions must balance their financial needs and mission with student success and educational outcomes in order to ensure long-term institutional viability and continued educational success. ",
+                                
+                                  fluidRow(br()),
+                                  "When considering this balance, an institution could either",
+                                  fluidRow(br()),
+                                  fluidRow(
+                                      column(
+                                          12, 
+                                          tags$b("1. Prioritize the institution’s success over student success ")
+                                      )
+                                  ), 
+                                  fluidRow(
+                                      column(
+                                          12, 
+                                          tags$b("2. Prioritize student success over institutional success, or ")
+                                      )
+                                  ), 
+                                  fluidRow(
+                                      column(
+                                          12, 
+                                          tags$b("3. Find a way to prioritize both the needs of the students and the institution. ")  
+                                      )
+                                  ), 
+                                  fluidRow(br()),
+                                  
+                                  "Balancing the needs of the institution, students, and community is vital to preserving the integrity and longevity of institutions. "
+                                  
+                              ),
+                              column(
+                                  4,
+                                  "On the one hand, if an institution cuts academic programs in order to reduce costs,  it runs the risk of compromising the quality of their academic programs and enrollment could fall further. On the other hand, if an institution does not cut costs, it could be deemed financially unfit to carry out its mission, lose its accreditation, and ultimately close its doors. ",
+                                  fluidRow(br()),
+                                  "The last option represents the implementation of a prioritization model that downsizes an institution while preserving student outcomes. In this way, prioritization models can be like the “Goldie Locks” tale of higher education. Instead of", tags$i("downsizing"),", an institution should focus on ", tags$i("rightsizing."),
+                                  fluidRow(br()),
+                                  "We collected data from public announcements in order to build a database of all the strategies adopted by IHEs leading up to and after Covid-19. The most common short-term strategies we found were implementing hiring freezes, raise and promotion freezes, and salary and benefit reductions. The most common long-term strategies include furloughing staff and faculty, and the reduction or elimination of academic program."
+                                  
+                                 
+                              ),
+                              
+                              
+                              # prtz bar years  ----
+                              column(
+                                  4,
+                                  align = "center",
+                                  h4("Prioritization Measures Over Time", align = "center"),
+                                  fluidRow(br()),
+                                  highchartOutput("prtz_yr")
+                                  
+                       
+                              ),
+                             
+                          ),
+                          
+                          br(),
+                          br(),
+                          
+                          fluidRow(
+                              # prtz pie charts ----
+                              column(
+                                  5,
+                                  align = "center",
+                                  h4("Prioritization measures adopted in 2020"),
+                                  radioButtons("prtz_measures", label = NULL,
+                                               inline = T,
+                                               choices = c("Short Term Measures", "Long Term Measures")),
+
+                                  highchartOutput("prtz_pie")
+                                  
+                              ),
+                              
+                              
+                              # prtz map ----
+                              column(
+                                  7, 
+                                  align = "center",
+                                  h4("IHEs that have prioritized"),
+                                  selectInput("prtz_yr", " ", choices = c(2019, 2020), selected = 2020),
+                                  
+                                  leafletOutput("prtz_map")
+                              )
+                              
+                              
+                          ),
                           
                           br(),
                           
+                          #prtz df ----
+                          fluidRow(
+                              column(8, 
+                                     offset=2, 
+                                     DTOutput("prtz_df"))
+                              
+                          ),
+                          
+                          br(),
                           br(),
                       ),
+                      
                       
                       
                       # STUDENT TAB -------------------------------------------------------------
@@ -748,7 +856,7 @@ server <- function(input, output) {
         }
     )
     
-    
+    # INSTITUTION TAB ----
     # M & C area ----
     
     output$merger_closures_us <- renderHighchart({
@@ -813,9 +921,113 @@ server <- function(input, output) {
         
     })
     
+    # prtz pie charts ---- 
+    
+    output$prtz_pie <- renderHighchart({
+        
+        var <- if (input$prtz_measures == "Short Term Measures") {"Short Term"} else if (input$prtz_measures == "Long Term Measures") {"Long Term"}
+        
+        df <- prtz %>% 
+            filter(year_of_prioritization_announcement == 2020) %>% 
+            
+            group_by(duration_of_prtz,prioritization_method) %>% 
+            count() %>% 
+            arrange(desc(n)) %>% 
+            filter(duration_of_prtz==var)
+        
+        
+        highchart() %>% 
+            hc_add_series(data = df, type = "pie", hcaes(x = prioritization_method, y = n),
+                          tooltip = list(pointFormat = "No. of IHEs: {point.n}")) %>% 
+            hc_plotOptions(pie = list(innerSize = "50%")) %>% 
+            hc_colors(c("#014357", "#2491f5", "#848c1f", "#4c8567", "#9ECFD8", "#05a0a8", "#ffc612", "#ff8431", "#ff5f89"))
+    })
+    
+ 
     
     
+    # prtz bar years ----
     
+    output$prtz_yr <- renderHighchart({
+        df <- prtz%>% 
+            distinct(unitid, school, state_abbreviation, year_of_prioritization_announcement, year_of_prioritization_implementation, duration_of_prtz) %>% 
+            group_by(year_of_prioritization_announcement, duration_of_prtz) %>% 
+            count()
+        
+        highchart() %>% 
+            hc_add_series(data = df, type = "column", hcaes(x = year_of_prioritization_announcement, y = n, group = duration_of_prtz), 
+                          tooltip = list(pointFormat = "No. of IHEs: {point.n}")) %>% 
+            hc_plotOptions(column = list(stacking = "normal")) %>% 
+            hc_legend(enabled = T) %>% 
+            hc_colors(c("#2491f5", "#848c1f"))
+        
+    })
+    
+    #prtz map----
+    
+    output$prtz_map <- renderLeaflet({
+        
+        yr <- input$prtz_yr
+        
+        prtz_map_reactive <- reactive({prtz_map %>% 
+            filter(year_of_prioritization_announcement == yr) }) 
+        
+        popup_label <- paste( "No. of institutions: ", prtz_map_reactive()$n)
+        pal <- colorNumeric(c("#F4F4F4", "#3D3D3D"), domain = prtz_map$n, na.color = "#9ECFD8")
+        
+        prtz_map_reactive() %>% 
+            leaflet(options = leafletOptions(zoomControl = FALSE,
+                                             minZoom = 4.13, maxZoom = 4.15,
+                                             dragging = T)) %>% 
+            addPolygons(fillColor =  ~pal(n),
+                        fillOpacity = 1,
+                        color = "white", 
+                        weight = 2,
+                        opacity = 1,
+                        popup = popup_label) %>% 
+            addLegend("bottomright", pal = pal, values = ~prtz_map$n, opacity = 1, title = "")
+    })
+    
+    
+    #prtz df----
+    output$prtz_df <- renderDT({
+        
+        df <- prtz %>% 
+            mutate(state_abbreviation = as.factor(state_abbreviation),
+                   prioritization_method= as.factor(prioritization_method),
+                   type_of_prtz = as.factor(type_of_prtz),
+                   duration_of_prtz = as.factor(duration_of_prtz)) %>% 
+            select(`Year Prioritization Announced` = year_of_prioritization_announcement,
+                   `Name of Institution` = school,
+                   `State` = state_abbreviation,
+                   `Prioritization Method` = prioritization_method,
+                   `Type of Prioritization` = type_of_prtz,
+                   `Duration` = duration_of_prtz,
+                   `Source` = source) %>% 
+            arrange(`State`)
+        
+        
+        
+        
+        datatable(
+            df,
+            rownames = F,
+            autoHideNavigation = T,
+            filter = "top",
+            options = list(
+                autoWidth = TRUE, 
+                scrollX = TRUE, 
+                columnDefs= list(
+                    list(width = '1000px', targets = c(6)),
+                    list(width = '300px', targets = c(1,3))
+                ),
+                scroller = TRUE
+                )
+            )
+    })
+    
+    
+    #STUDENT TAB ----
     # Survey title ----
     
     output$survey_title <- renderUI({

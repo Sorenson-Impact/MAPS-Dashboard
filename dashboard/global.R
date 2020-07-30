@@ -18,8 +18,11 @@ surveys_natnl <-read_rds("./www/data/surveys_natnl.rds")
 
 mg_cl <- read_rds("./www/data/mergers_closures.rds")
 
-
 surveys_state <-  read_rds("./www/data/surveys_state.rds")
+
+prtz <- read_rds("./www/data/prioritization.rds")
+
+prtz_map <- read_rds("./www/data/prtz_shp.rds") 
 
 # functions
 
