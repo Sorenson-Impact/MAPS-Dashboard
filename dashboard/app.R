@@ -646,7 +646,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated July 25, 2020"
+                              "Data last updated August 4, 2020"
                               
                           )
                       ),
@@ -950,7 +950,7 @@ server <- function(input, output) {
     
     output$prtz_yr <- renderHighchart({
         df <- prtz%>% 
-            distinct(unitid, school, state_abbreviation, year_of_prioritization_announcement, year_of_prioritization_implementation, duration_of_prtz) %>% 
+            distinct(unitid, school, state, year_of_prioritization_announcement, year_of_prioritization_implementation, duration_of_prtz) %>% 
             group_by(year_of_prioritization_announcement, duration_of_prtz) %>% 
             count()
         
@@ -993,13 +993,13 @@ server <- function(input, output) {
     output$prtz_df <- renderDT({
         
         df <- prtz %>% 
-            mutate(state_abbreviation = as.factor(state_abbreviation),
+            mutate(state = as.factor(state),
                    prioritization_method= as.factor(prioritization_method),
                    type_of_prtz = as.factor(type_of_prtz),
                    duration_of_prtz = as.factor(duration_of_prtz)) %>% 
             select(`Year Prioritization Announced` = year_of_prioritization_announcement,
                    `Name of Institution` = school,
-                   `State` = state_abbreviation,
+                   `State` = state,
                    `Prioritization Method` = prioritization_method,
                    `Type of Prioritization` = type_of_prtz,
                    `Duration` = duration_of_prtz,
@@ -1019,7 +1019,8 @@ server <- function(input, output) {
                 scrollX = TRUE, 
                 columnDefs= list(
                     list(width = '1000px', targets = c(6)),
-                    list(width = '300px', targets = c(1,3))
+                    list(width = '300px', targets = c(1,3)),
+                    list(width = '100px', targets = c(2))
                 ),
                 scroller = TRUE
                 )

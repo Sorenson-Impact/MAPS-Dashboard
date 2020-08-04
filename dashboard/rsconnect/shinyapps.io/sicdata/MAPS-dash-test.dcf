@@ -5,8 +5,8 @@ account: sicdata
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2616204
-bundleId: 3456092
+bundleId: 3475539
 url: https://sicdata.shinyapps.io/MAPS-dash-test/
-when: 1596137090.5107
+when: 1596580977.29177
 asMultiple: FALSE
 asStatic: FALSE
