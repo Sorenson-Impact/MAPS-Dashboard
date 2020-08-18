@@ -646,7 +646,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated August 4, 2020"
+                              "Data last updated August 18, 2020"
                               
                           )
                       ),
@@ -827,7 +827,7 @@ server <- function(input, output) {
     
     output$state_spending_text_diff <- renderUI({
         
-        val <- spending_reactive() %>% pull(covid_percent_change)
+        val <- round(spending_reactive() %>% pull(covid_percent_change),1)
         class <- if (val>0) {"big_number_pos"} else {"big_number_neg"}
         
         div(class = class,
