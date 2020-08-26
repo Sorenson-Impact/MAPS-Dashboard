@@ -335,7 +335,7 @@ input[type="search"] {
 
 
 .dataTables_wrapper {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 /*
@@ -343,7 +343,4 @@ th {
 text-transform: uppercase;
 font-weight: 300;
 }*/
-  
-
-  
   
