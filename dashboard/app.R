@@ -20,59 +20,144 @@ source("global.R")
 body <- mainPanel(width = 12,
                   position = "center",
                   fluidRow(
-                    column(
-                        12,
-                        align = "left",
-                        tags$a(
-                            href="https://www.sorensonimpact.com/maps",
-                            target = "_blank",
-                            img(src = "./images/logo.png", class = "logoImg1")
-                            )
-                    )  
-                  ),
-                  br(),
-                  br(),
-                  fluidRow(
                       column(
+                          style="background-color:#000000",
                           12,
-                          align = "center",
-                          img(src = "./images/header.png", class = "headerImg")
-                          
-                      )
+                          tags$br(),
+                          fluidRow(
+                              column(
+                                  12, 
+                                  align = "right",
+                                  tags$a(
+                                      href="https://www.sorensonimpact.com/maps",
+                                      target = "_blank",
+                                      img(src = "./images/logo2.png", class = "logoImg1")
+                                  )
+                              )
+        
+                          ),
+                          tags$br(),
+                          fluidRow(
+                              column(
+                                  2, 
+                                  img(src = "./images/header2.png", class = "headerImg1")
+                              ),
+                              column(
+                                  10,
+                                  fluidRow(
+                                      column(
+                                          12,
+                                          div(
+                                              class = "lvl2_title_wh",
+                                              "The Impact of Covid-19 on Higher Education"
+                                          )
+                                      )
+                                  ),
+                                  tags$br(),
+                                  fluidRow(
+                                      
+                                      column(
+                                          6,
+                                          
+                                          div(class = "whitetxt",
+                                              "The pandemic will affect different institutions and students unequally. With your help, we can do something about it."),
+                                          fluidRow(br()),
+                                          div(class = "whitetxt",
+                                              "This dashboard is a part of the MAPS Project, where we Model, Analyze, Prototype, and Share innovative data and solutions to challenges in higher education. We invite your collaboration. Find our project on ",
+                                              tags$a(
+                                                  href="https://github.com/Sorenson-Impact/MAPS-Dashboard", 
+                                                  target = "_blank",
+                                                  "Github"),
+                                              "and add to our analysis. Reach out with ideas on data and topics you want to see addressed. We will be updating this dashboard regularly." 
+                                          ),
+                                          
+                                      ),
+                                      column(
+                                          6,
+                                          div(class = "whitetxt",
+                                              "As institutions grapple with the challenges brought by Covid-19, data on student preferences, state policies, and institutional reactions are more important than ever to help drive decisions that are student centric."
+                                          ),
+                                          
+                                          fluidRow(br()),
+                                          div(class = "whitetxt",
+                                              "This crisis raises new questions as we grapple with an uncertain future, but colleges and universities have an opportunity to help create a new system of higher education that is more equitable and improves outcomes for all students. "
+                                          ),
+                                          
+                                      )
+                                      
+                                  ),
+                                  tags$br(),
+                                  
+                              )
+                          )
+                      )  
                   ),
-                  fluidRow(
-                      column(10, 
-                             offset = 1,
-                             align = "left", 
-                             fluidRow(
-                                 h1("The Impact of Covid-19 on Higher Education"),
-                                 fluidRow(br()),
-                                 fluidRow(
-                                     column(
-                                         6,
-                                         "The pandemic will affect different institutions and students unequally. With your help, we can do something about it.",
-                                         fluidRow(br()),
-                                         "This dashboard is a part of the MAPS Project, where we Model, Analyze, Prototype, and Share innovative data and solutions to challenges in higher education. We invite your collaboration. Find our project on ",
-                                         tags$a(
-                                             href="https://github.com/Sorenson-Impact/MAPS-Dashboard", 
-                                             target = "_blank",
-                                             "Github"),
-                                         "and add to our analysis. Reach out with ideas on data and topics you want to see addressed. We will be updating this dashboard regularly."
-                                     ),
-                                     column(
-                                         6,
-                                         "As institutions grapple with the challenges brought by Covid-19, data on student preferences, state policies, and institutional reactions are more important than ever to help drive decisions that are student centric.",
-                                         fluidRow(br()),
-                                         "This crisis raises new questions as we grapple with an uncertain future, but colleges and universities have an opportunity to help create a new system of higher education that is more equitable and improves outcomes for all students. "
-                                     )
-                                 )
-                             ),
-                      ),
-                      
-                  ),
+                  
+                  # fluidRow(
+                  #   column(
+                  #       12,
+                  #       align = "left",
+                  #       tags$a(
+                  #           href="https://www.sorensonimpact.com/maps",
+                  #           target = "_blank",
+                  #           img(src = "./images/logo.png", class = "logoImg1")
+                  #           )
+                  #   )  
+                  # ),
+                  # br(),
+                  # br(),
+                  # fluidRow(
+                  #     column(
+                  #         12,
+                  #         align = "center",
+                  #         img(src = "./images/header.png", class = "headerImg")
+                  #         
+                  #     )
+                  # ),
+                  # fluidRow(
+                  #     column(10, 
+                  #            offset = 1,
+                  #            align = "left", 
+                  #            fluidRow(
+                  #                h1("The Impact of Covid-19 on Higher Education"),
+                  #                fluidRow(br()),
+                  #                fluidRow(
+                  #                    column(
+                  #                        6,
+                  #                        "The pandemic will affect different institutions and students unequally. With your help, we can do something about it.",
+                  #                        fluidRow(br()),
+                  #                        "This dashboard is a part of the MAPS Project, where we Model, Analyze, Prototype, and Share innovative data and solutions to challenges in higher education. We invite your collaboration. Find our project on ",
+                  #                        tags$a(
+                  #                            href="https://github.com/Sorenson-Impact/MAPS-Dashboard", 
+                  #                            target = "_blank",
+                  #                            "Github"),
+                  #                        "and add to our analysis. Reach out with ideas on data and topics you want to see addressed. We will be updating this dashboard regularly."
+                  #                    ),
+                  #                    column(
+                  #                        6,
+                  #                        "As institutions grapple with the challenges brought by Covid-19, data on student preferences, state policies, and institutional reactions are more important than ever to help drive decisions that are student centric.",
+                  #                        fluidRow(br()),
+                  #                        "This crisis raises new questions as we grapple with an uncertain future, but colleges and universities have an opportunity to help create a new system of higher education that is more equitable and improves outcomes for all students. "
+                  #                    )
+                  #                )
+                  #            ),
+                  #     ),
+                  #     
+                  # ),
                   
                   
                   br(),
+                  fluidRow(
+                    column(
+                      12, 
+                      align = "center",
+                      h4("CHOOSE AN IMPACT FOCUS"), 
+                      div(class = "arrow",
+                        HTML("&#8964;")
+                      )
+                    )
+                  ),
+                  
                   tabsetPanel(
                       
                       type = "tabs",
@@ -86,7 +171,6 @@ body <- mainPanel(width = 12,
                           
                           # State Spending----
                           
-                          br(),
                           br(),
                           
                           fluidRow(
