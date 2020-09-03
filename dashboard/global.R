@@ -5,6 +5,7 @@
 library(tidyverse)
 library(googlesheets4)
 library(sf)
+library(janitor)
 
 # load data ----
 
@@ -13,6 +14,8 @@ spending <-  read_rds("./www/data/spending.rds")
 spending_shp <- read_rds("./www/data/spending_shp.rds")
 
 surveys_comp <- read_rds("./www/data/surveys_comp.rds")
+
+surveys_comp1 <- read_rds("./www/data/surveys_comp1.rds")
 
 surveys_natnl <-read_rds("./www/data/surveys_natnl.rds")
 

@@ -40,13 +40,14 @@ body <- mainPanel(width = 12,
                           fluidRow(
                               column(
                                   2, 
+                                  align = "center",
                                   img(src = "./images/header2.png", class = "headerImg1")
                               ),
                               column(
                                   10,
                                   fluidRow(
                                       column(
-                                          12,
+                                          10,
                                           div(
                                               class = "lvl2_title_wh",
                                               "The Impact of Covid-19 on Higher Education"
@@ -57,7 +58,8 @@ body <- mainPanel(width = 12,
                                   fluidRow(
                                       
                                       column(
-                                          6,
+                                          5,
+                                          
                                           
                                           div(class = "whitetxt",
                                               "The pandemic will affect different institutions and students unequally. With your help, we can do something about it."),
@@ -73,7 +75,7 @@ body <- mainPanel(width = 12,
                                           
                                       ),
                                       column(
-                                          6,
+                                          5,
                                           div(class = "whitetxt",
                                               "As institutions grapple with the challenges brought by Covid-19, data on student preferences, state policies, and institutional reactions are more important than ever to help drive decisions that are student centric."
                                           ),
@@ -86,6 +88,7 @@ body <- mainPanel(width = 12,
                                       )
                                       
                                   ),
+                                  tags$br(),
                                   tags$br(),
                                   
                               )
@@ -376,11 +379,12 @@ body <- mainPanel(width = 12,
                           
                           fluidRow(
                               column(
-                                  6,
+                                  5,
+                                  align = "center",
                                   img(src = "./images/institution.png", class = "institutionImg")
                               ),
                               column(
-                                  6,
+                                  7,
                                   div(class = "lvl2_title",
                                       " Institution Mergers and Closures"),
                                   fluidRow(br()),
@@ -604,14 +608,31 @@ body <- mainPanel(width = 12,
                                   ),
                                   fluidRow(br()),
                                   radioGroupButtons(
-                                      inputId = "st_pop",
-                                      label= "SEE RESULTS BY STUDENT POPULATIONS",
+                                      inputId = "sel_st_pop",
+                                      label = "SELECT YOUR GROUPING OF INTEREST",
                                       status = "myClass",
-                                      choices = unique(surveys_comp$student_population), 
+                                      choices = c("Impact Area" = "impact_area",
+                                                  "Student Population" = "student_population"),
+                                      selected = "impact_area",
                                       size = "lg",
                                       direction = "horizontal",
                                       justified = F,
-                                      individual = T)
+                                      individual = T
+                                      
+                                  ),
+                                  # Student radio buttons ----
+                                  uiOutput(
+                                      "st_radio_grp",
+                                  )
+                                  # radioGroupButtons(
+                                  #     inputId = "st_pop",
+                                  #     label= "SEE RESULTS BY STUDENT POPULATIONS",
+                                  #     status = "myClass",
+                                  #     choices = unique(surveys_comp$student_population), 
+                                  #     size = "lg",
+                                  #     direction = "horizontal",
+                                  #     justified = F,
+                                  #     individual = T)
                                   
                               )
                               
@@ -622,6 +643,7 @@ body <- mainPanel(width = 12,
                           
                           
                           # Survey result title ----
+                          br(),
                           fluidRow(
                               column(
                                   12,
@@ -730,7 +752,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated August 18, 2020"
+                              "Data last updated September 1, 2020"
                               
                           )
                       ),
@@ -1113,6 +1135,31 @@ server <- function(input, output) {
     
     
     #STUDENT TAB ----
+    
+    surveys_comp_reactive <- reactive({surveys_comp1 %>% 
+        rename(sel = input$sel_st_pop) %>% 
+            select(sel, high_level_overview, specific_survey_data, survey_name, link_to_source, 
+                   source, date_of_survey)
+        })
+    
+    # Student radio buttons ----
+   output$st_radio_grp <- renderUI({
+       
+       label = if (input$sel_st_pop == "student_population") {"SEE RESULTS BY STUDENT POPULATIONS"} else {"SEE RESULTS BY IMPACT AREA"}
+       
+       radioGroupButtons(
+           inputId = "st_pop",
+           label= label,
+           status = "myClass",
+           choices = unique(surveys_comp_reactive()$sel),
+           size = "lg",
+           direction = "horizontal",
+           justified = F,
+           individual = T)
+       
+   })
+        
+    
     # Survey title ----
     
     output$survey_title <- renderUI({
@@ -1124,8 +1171,8 @@ server <- function(input, output) {
     # Survey text ----
     
     output$survey_text<- renderUI({
-        grouped_df <- surveys_comp %>%
-            filter(student_population == input$st_pop) %>%
+        grouped_df <- surveys_comp_reactive() %>%
+            filter(sel == input$st_pop) %>%
             group_by(high_level_overview)
         
         
