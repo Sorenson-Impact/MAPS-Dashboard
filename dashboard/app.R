@@ -15,7 +15,7 @@ source("global.R")
 
 
 
-# DEFINE BODY ----
+# body ----
 
 body <- mainPanel(width = 12,
                   position = "center",
@@ -172,7 +172,7 @@ body <- mainPanel(width = 12,
                       tabPanel(
                           title = h4("STATE IMPACT"), 
                           
-                          # State Spending----
+                          # _ State Spending----
                           
                           br(),
                           
@@ -200,7 +200,7 @@ body <- mainPanel(width = 12,
                                           
                                       )
                                   ),
-                                  # Map -----
+                                  # _ Map -----
                                   fluidRow(
                                       leafletOutput("st", height = 500)
                                   )
@@ -230,11 +230,11 @@ body <- mainPanel(width = 12,
                                      fluidRow(
                                          column(
                                              6,
-                                             #State budget area ----
+                                             #_ State budget area ----
                                              
                                              highchartOutput("line", height = 200),
                                              
-                                             # State budget numbers ----
+                                             # _ State budget numbers ----
                                              
                                              fluidRow(
                                                  column(
@@ -249,12 +249,12 @@ body <- mainPanel(width = 12,
                                                  
                                              ),
                                              
-                                             # Budget text ----
+                                             # _ Budget text ----
                                              
                                              uiOutput("spending_caveats"),
                                              fluidRow(br()),
                                              
-                                             # Download button ----
+                                             # _ Download button ----
                                              fluidRow(
                                                  column(
                                                      12, 
@@ -273,10 +273,10 @@ body <- mainPanel(width = 12,
                                              
                                          ),
                                          column(6,
-                                                # certainty bar ----
+                                                # _ certainty bar ----
                                                 uiOutput("title_confidence"),
                                                 highchartOutput("cer_bar", height = 60),
-                                                # certainty key ----
+                                                # _ certainty key ----
                                                 h4("Key for Confidence"),
                                                 div(class = "uncertain",
                                                     "UNCONFIDENT"
@@ -332,7 +332,7 @@ body <- mainPanel(width = 12,
                           
                           br(),
                           br(),
-                          # Methodology ----
+                          # _Methodology ----
                           
                           fluidRow(
                               column(
@@ -403,14 +403,14 @@ body <- mainPanel(width = 12,
                                       )
                                   ),
                                   fluidRow(br()),
-                                  # mergers and closures area ----
+                                  # _ mergers and closures area ----
                                   highchartOutput("merger_closures_us", height = "550px"),
                                   
                                   
                               )
                           ),
                           
-                          # mergers and closures number ----
+                          # _ mergers and closures number ----
                           br(),
                           fluidRow(
                               align = "center",
@@ -419,7 +419,7 @@ body <- mainPanel(width = 12,
                           
                           br(),
                           
-                          #merger and closures select ----
+                          #_ merger and closures select ----
                           
                           fluidRow(
                               align = "center",
@@ -441,7 +441,7 @@ body <- mainPanel(width = 12,
                           
                           
                           
-                          # mergers and closures table-----
+                          # _ mergers and closures table-----
                           br(),
                          
                           br(),
@@ -457,7 +457,7 @@ body <- mainPanel(width = 12,
                           br(),
                           br(),
                           
-                          # prioritization measures ----
+                          # _ prioritization measures ----
                           fluidRow(
                               column(
                                   8, 
@@ -510,7 +510,7 @@ body <- mainPanel(width = 12,
                               ),
                               
                               
-                              # prtz bar years  ----
+                              # _ prtz bar years  ----
                               column(
                                   4,
                                   align = "center",
@@ -527,7 +527,7 @@ body <- mainPanel(width = 12,
                           br(),
                           
                           fluidRow(
-                              # prtz pie charts ----
+                              # _ prtz pie charts ----
                               column(
                                   5,
                                   align = "center",
@@ -541,7 +541,7 @@ body <- mainPanel(width = 12,
                               ),
                               
                               
-                              # prtz map ----
+                              # _ prtz map ----
                               column(
                                   7, 
                                   align = "center",
@@ -556,7 +556,7 @@ body <- mainPanel(width = 12,
                           
                           br(),
                           
-                          #prtz df ----
+                          #_ prtz df ----
                           fluidRow(
                               column(8, 
                                      offset=2, 
@@ -620,7 +620,7 @@ body <- mainPanel(width = 12,
                                       individual = T
                                       
                                   ),
-                                  # Student radio buttons ----
+                                  # _ Student radio buttons ----
                                   uiOutput(
                                       "st_radio_grp",
                                   )
@@ -642,7 +642,7 @@ body <- mainPanel(width = 12,
                           
                           
                           
-                          # Survey result title ----
+                          # _ Survey result title ----
                           br(),
                           fluidRow(
                               column(
@@ -682,7 +682,7 @@ body <- mainPanel(width = 12,
                           br(),
                           
                           
-                          # All Surveys ---- 
+                          # _ All Surveys ---- 
                           fluidRow(
                               column(
                                   4,
@@ -752,7 +752,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated September 15, 2020"
+                              "Data last updated September 29, 2020"
                               
                           )
                       ),
@@ -776,9 +776,10 @@ body <- mainPanel(width = 12,
                   
 )
 
-# DEFINE UI -----------------------------------------------------------
+# define ui -----------------------------------------------------------
 
 ui <- fluidPage(theme = "maps_dash_theme.css",
+                tags$head(includeHTML(("./www/google-analytics.html"))),
                 useShinyjs(),
                 extendShinyjs(text = "shinyjs.toTop = function() {window.scrollTo(0, 0)}"),
                 titlePanel(
@@ -789,7 +790,7 @@ ui <- fluidPage(theme = "maps_dash_theme.css",
 )
 
 
-# DEFINE SERVER -------------------------------------------------------
+# define server -------------------------------------------------------
 server <- function(input, output) {
     
     
@@ -797,8 +798,9 @@ server <- function(input, output) {
         if(is.null(input$st_shape_click$id)) {"Utah"} else {input$st_shape_click$id}
     })
     
+    # STATE TAB ----
     
-    # State select -----
+    # _ State select -----
     
     output$select_state <- renderUI({
         selectInput("state_drop", label = h4("Select State"),
@@ -806,7 +808,7 @@ server <- function(input, output) {
                     selected = clicked_state())
     })
     
-    # State name ----
+    # _ State name ----
     
     
     output$state_selected <- renderUI({
@@ -814,7 +816,7 @@ server <- function(input, output) {
                  paste(input$state_drop, "State Higher Education Budget"))
     })
     
-    #Map ----
+    # _ Map ----
     
     
     output$st <- renderLeaflet({
@@ -840,7 +842,7 @@ server <- function(input, output) {
         
     })
     
-    # Leaflet proxy ----
+    # _ Leaflet proxy ----
     
     observe({
         leafletProxy("st", data = spending_shp %>% dplyr::filter(state %in% input$state_drop)) %>%
@@ -855,7 +857,7 @@ server <- function(input, output) {
     
     
     
-    # State Spending Area ----
+    # _ State Spending Area ----
     
     spending_reactive<- reactive({
         spending %>% 
@@ -891,7 +893,7 @@ server <- function(input, output) {
         
     })
     
-    # Certainty bar ----
+    # _ Certainty bar ----
     
     output$title_confidence <-  renderUI({
         h4(paste("Confidence level of the estimated budget difference: ", spending_reactive()$certainty_level))
@@ -920,7 +922,7 @@ server <- function(input, output) {
     
     
     
-    # State Spending text ----
+    # _ State Spending text ----
     
     output$state_spending_text_post <- renderUI({
     
@@ -951,7 +953,7 @@ server <- function(input, output) {
     })
     
     
-    # download spending data ----
+    # _ download spending data ----
     
     output$sp_download_btn <- downloadHandler(
         filename = function(){
@@ -963,7 +965,7 @@ server <- function(input, output) {
     )
     
     # INSTITUTION TAB ----
-    # M & C area ----
+    # _ M & C area ----
     
     output$merger_closures_us <- renderHighchart({
         df <- mg_cl %>%
@@ -992,7 +994,7 @@ server <- function(input, output) {
     
     
     
-    # m and c summary ----
+    # _ m and c summary ----
     
     output$mg_cl_summary <- renderUI({
         
@@ -1006,7 +1008,7 @@ server <- function(input, output) {
     })
     
     
-    # M & C data table ----
+    # _ M & C data table ----
 
     output$mg_cl_df <- renderDT({
         
@@ -1027,7 +1029,7 @@ server <- function(input, output) {
         
     })
     
-    # prtz pie charts ---- 
+    # _ prtz pie charts ---- 
     
     output$prtz_pie <- renderHighchart({
         
@@ -1052,7 +1054,7 @@ server <- function(input, output) {
  
     
     
-    # prtz bar years ----
+    # _ prtz bar years ----
     
     output$prtz_yr <- renderHighchart({
         df <- prtz%>% 
@@ -1069,7 +1071,7 @@ server <- function(input, output) {
         
     })
     
-    #prtz map----
+    # _ prtz map----
     
     output$prtz_map <- renderLeaflet({
         
@@ -1095,7 +1097,7 @@ server <- function(input, output) {
     })
     
     
-    #prtz df----
+    # _ prtz df----
     output$prtz_df <- renderDT({
         
         df <- prtz %>% 
@@ -1142,7 +1144,7 @@ server <- function(input, output) {
                    source, date_of_survey)
         })
     
-    # Student radio buttons ----
+    # _ Student radio buttons ----
    output$st_radio_grp <- renderUI({
        
        label = if (input$sel_st_pop == "student_population") {"SEE RESULTS BY STUDENT POPULATIONS"} else {"SEE RESULTS BY IMPACT AREA"}
@@ -1160,7 +1162,7 @@ server <- function(input, output) {
    })
         
     
-    # Survey title ----
+    # _ Survey title ----
     
     output$survey_title <- renderUI({
         HTML(paste(tags$div(class = "lvl4_title", input$st_pop)))
@@ -1168,7 +1170,7 @@ server <- function(input, output) {
     
     
     
-    # Survey text ----
+    # _ Survey text ----
     
     output$survey_text<- renderUI({
         grouped_df <- surveys_comp_reactive() %>%
@@ -1225,7 +1227,7 @@ server <- function(input, output) {
         
     })
     
-    # All Surveys ----
+    # _ All Surveys ----
     
     
     output$natnl_dt <- renderDT({
