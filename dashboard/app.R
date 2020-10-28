@@ -332,7 +332,7 @@ body <- mainPanel(width = 12,
                           
                           br(),
                           br(),
-                          # _Methodology ----
+                          # _ Methodology ----
                           
                           fluidRow(
                               column(
@@ -752,7 +752,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated October 13, 2020"
+                              "Data last updated October 27, 2020"
                               
                           )
                       ),
