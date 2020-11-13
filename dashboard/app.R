@@ -29,7 +29,7 @@ body <- mainPanel(width = 12,
                                   12, 
                                   align = "right",
                                   tags$a(
-                                      href="https://www.sorensonimpact.com/maps",
+                                      href="https://www.sorensonimpact.com/themapsproject",
                                       target = "_blank",
                                       img(src = "./images/logo2.png", class = "logoImg1")
                                   )
@@ -752,7 +752,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated October 27, 2020"
+                              "Data last updated November 11, 2020"
                               
                           )
                       ),
