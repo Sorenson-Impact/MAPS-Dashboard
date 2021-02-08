@@ -752,7 +752,7 @@ body <- mainPanel(width = 12,
                               "MAPS Project supported by the Bill & Melinda Gates Foundation"),
                           div(
                               class = "footer",
-                              "Data last updated November 11, 2020"
+                              "Data last updated Febryary 11, 2021"
                               
                           )
                       ),
